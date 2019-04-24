@@ -32,7 +32,7 @@
     "loss": "mse",#參考(keras.io/losses/)
     "optimizer": "adam",#參考(keras.io/optimizers/)
     "plan": "cnn",#可選cnn or lstm
-    "save_model_dir": "saved_models"#訓練後的權重儲存資料夾
+    "save_model_dir": "saved_models",#訓練後的權重儲存資料夾
     "save_graph_dir": "graph"#圖表儲存資料夾
   },
   "training": {
@@ -46,7 +46,13 @@
 
 ------------------
 
-## 自己調整模型
+## 建立自己的模型
 修改core/model.py檔案中的build_customized_model()
 - 參考[https://keras.io/layers/core/#dense](https://keras.io/layers/core/#dense)建立模型
 
+
+## 後續應用
+- 把keras轉換成tensorflow檔案
+[https://github.com/amir-abdi/keras_to_tensorflow](https://github.com/amir-abdi/keras_to_tensorflow)
+- 把pb檔案放入android專案(修改路徑app/src/main/assets/tensorflow_inception_graph.pb)
+[https://github.com/MindorksOpenSource/AndroidTensorFlowMachineLearningExample](https://github.com/MindorksOpenSource/AndroidTensorFlowMachineLearningExample)
