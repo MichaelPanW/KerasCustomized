@@ -29,7 +29,7 @@
     "num_classes": 10#分類數，決定輸出層
   },
   "model": {
-    "loss": "mse",#參考[losses](https://keras.io/losses/)
+    "loss": "mse",#參考 -[losses] (keras.io/losses/)
     "optimizer": "adam",
     "plan": "cnn",
     "save_dir": "saved_models"
