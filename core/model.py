@@ -24,12 +24,12 @@ class Model():
 		self.model = load_model(filepath)
 	def show_plot(self):
 		plot_model(self.model, to_file='model.png')
-
+	
 	def build_lstm_model(self, configs):
 		timer = Timer()
 		timer.start()
 		self.configs=configs
-		self.save_name = '%s-%s' % (self.configs['model']['plan'], str(configs['training']['epochs']))
+		self.save_name = '%s-%s-%s' % (self.configs['training']['name'],self.configs['model']['plan'], str(configs['training']['epochs']))
 		self.model.add(LSTM(100, input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim']), return_sequences=True))
 		self.model.add(Dropout(0.2))
 		self.model.add(LSTM(100, input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim']), return_sequences=True))
@@ -44,7 +44,7 @@ class Model():
 		timer = Timer()
 		timer.start()
 		self.configs=configs
-		self.save_name = '%s-%s' % (self.configs['model']['plan'], str(configs['training']['epochs']))
+		self.save_name = '%s-%s-%s' % (self.configs['training']['name'],self.configs['model']['plan'], str(configs['training']['epochs']))
 		self.model.add(Conv2D(32, kernel_size=(3, 3),
 		                 activation='relu',
 		                 input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim'],1)))
@@ -60,17 +60,31 @@ class Model():
 
 		print('[Model] Model Compiled')
 		timer.stop()
+	def build_customized_model(self, configs):
+		timer = Timer()
+		timer.start()
+		self.configs=configs
+		self.save_name = '%s-%s' % (self.configs['model']['plan'], str(configs['training']['epochs']))
+		self.model.add(Conv2D(32, kernel_size=(3, 3),
+		                 activation='relu',
+		                 input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim'],1)))
+		'''
+
+			DIY Space reference from https://keras.io/layers/core/#dense
+
+		'''
+		self.model.add(Dense(configs['data']['num_classes'], activation='softmax'))
+
+		self.model.compile(loss=configs['model']['loss'], optimizer=configs['model']['optimizer'])
+
+		print('[Model] Model Compiled')
+		timer.stop()
 	def train(self, x, y, epochs, batch_size):
 		timer = Timer()
 		timer.start()
 		print('[Model] Training Started')
 		print('[Model] %s epochs, %s batch size' % (epochs, batch_size))
-		save_fname = 'saved_models/%s-e%s.h5' % (self.save_name,dt.datetime.now().strftime('%d%m%Y-%H%M%S'))
-		self.saved_models=save_fname
-		callbacks = [
-			EarlyStopping(monitor='val_loss', patience=2),
-			ModelCheckpoint(filepath=save_fname, monitor='val_loss', save_best_only=True)
-		]
+		self.saved_models = '%s/%s-e%s.h5' % (self.configs['model']['save_model_dir'],self.save_name,dt.datetime.now().strftime('%d%m%Y-%H%M%S'))
 		self.history = self.model.fit(
 			x,
 			(y),
@@ -79,31 +93,10 @@ class Model():
 			batch_size=batch_size,
 			verbose=1
 		)
-		self.model.save(save_fname)
+		self.model.save(self.saved_models)
 
-		print('[Model] Training Completed. Model saved as %s' % save_fname)
+		print('[Model] Training Completed. Model saved as %s' % self.saved_models)
 		timer.stop()
-	def train_generator(self, data_gen, epochs, batch_size, steps_per_epoch):
-		timer = Timer()
-		timer.start()
-		print('[Model] Training Started')
-		print('[Model] %s epochs, %s batch size, %s batches per epoch' % (epochs, batch_size, steps_per_epoch))
-		
-		save_fname = 'saved_models/%s-e%s.h5' % (dt.datetime.now().strftime('%d%m%Y-%H%M%S'), str(epochs))
-		callbacks = [
-			ModelCheckpoint(filepath=save_fname, monitor='loss', save_best_only=True)
-		]
-		self.model.fit_generator(
-			data_gen,
-			steps_per_epoch=steps_per_epoch,
-			epochs=epochs,
-			callbacks=callbacks,
-			workers=1
-		)
-		
-		print('[Model] Training Completed. Model saved as %s' % save_fname)
-		timer.stop()
-
 	def predict_point_by_point(self, data):
 		#Predict each timestep given the last sequence of true data, in effect only predicting 1 step ahead each time
 		predicted = self.model.predict(data)
@@ -141,5 +134,5 @@ class Model():
 		plt.ylabel('loss')
 		plt.xlabel('epoch')
 		plt.legend(['train', 'test'], loc='upper left')
-		plt.savefig('graph/'+self.save_name+"-loss.png")
+		plt.savefig('%s/%s-loss.png' %(self.configs['model']['save_graph_dir'],self.save_name))
 		plt.close('all') # 关闭图 0

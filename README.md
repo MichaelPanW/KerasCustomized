@@ -29,18 +29,24 @@
     "num_classes": 10#分類數，決定輸出層
   },
   "model": {
-    "loss": "mse",#參考 -[losses] (keras.io/losses/)
-    "optimizer": "adam",
-    "plan": "cnn",
-    "save_dir": "saved_models"
+    "loss": "mse",#參考(keras.io/losses/)
+    "optimizer": "adam",#參考(keras.io/optimizers/)
+    "plan": "cnn",#可選cnn or lstm
+    "save_model_dir": "saved_models"#訓練後的權重儲存資料夾
+    "save_graph_dir": "graph"#圖表儲存資料夾
   },
   "training": {
-    "batch_size": 39,
-    "epochs": 10,
-    "name": "tech_project"
+    "batch_size": 39,#批次大小
+    "epochs": 1000,#訓練次數
+    "name": "tech_project"#專案名稱
   }
 }
 
-
 ```
+
+------------------
+
+## 自己調整模型
+修改core/model.py檔案中的build_customized_model()
+- 參考[https://keras.io/layers/core/#dense](https://keras.io/layers/core/#dense)建立模型
 
