@@ -2,7 +2,6 @@
   "data": {
     "input_dim": 28,
     "input_timesteps": 28,
-    "normalise": true,
     "num_classes": 10
   },
   "model": {

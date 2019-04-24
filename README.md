@@ -24,10 +24,9 @@
 
 {
   "data": {
-    "input_dim": 28,
-    "input_timesteps": 28,
-    "normalise": true,
-    "num_classes": 10
+    "input_dim": 28,#資料欄數，決定輸入層
+    "input_timesteps": 28,#資料列數，決定輸入層
+    "num_classes": 10#分類數，決定輸出層
   },
   "model": {
     "loss": "mse",
