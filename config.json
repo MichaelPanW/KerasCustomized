@@ -12,8 +12,8 @@
     "save_graph_dir": "graph"
   },
   "training": {
-    "batch_size": 39,
-    "epochs": 1000,
+    "batch_size": 128,
+    "epochs": 10,
     "name": "tech_project"
   }
 }
