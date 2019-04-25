@@ -2,7 +2,8 @@
   "data": {
     "input_dim": 28,
     "input_timesteps": 28,
-    "num_classes": 10
+    "num_classes": 10,
+    "channels": 1
   },
   "model": {
     "loss": "mse",

@@ -49,8 +49,8 @@ def main():
 	#dataset pre process 
 	#cnn need more 1 row
 	if(configs['model']["plan"]=="cnn"):
-		x_train = x_train.reshape(x_train.shape[0], x_train.shape[1], x_train.shape[2],1)
-		x_test = x_test.reshape(x_test.shape[0], x_test.shape[1], x_test.shape[2],1)
+		x_train = x_train.reshape(x_train.shape[0], x_train.shape[1], x_train.shape[2],configs["data"]["channels"])
+		x_test = x_test.reshape(x_test.shape[0], x_test.shape[1], x_test.shape[2],configs["data"]["channels"])
 	#normalization
 	x_train = x_train.astype('float32')
 	x_test = x_test.astype('float32')

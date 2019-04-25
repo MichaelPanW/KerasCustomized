@@ -47,7 +47,7 @@ class Model():
 		self.save_name = '%s-%s-%s' % (self.configs['training']['name'],self.configs['model']['plan'], str(configs['training']['epochs']))
 		self.model.add(Conv2D(32, kernel_size=(3, 3),
 		                 activation='relu',
-		                 input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim'],1)))
+		                 input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim'],configs["data"]["channels"])))
 		self.model.add(Conv2D(64, (3, 3), activation='relu'))
 		self.model.add(MaxPooling2D(pool_size=(2, 2)))
 		self.model.add(Dropout(0.25))
@@ -67,7 +67,7 @@ class Model():
 		self.save_name = '%s-%s' % (self.configs['model']['plan'], str(configs['training']['epochs']))
 		self.model.add(Conv2D(32, kernel_size=(3, 3),
 		                 activation='relu',
-		                 input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim'],1)))
+		                 input_shape=(configs['data']['input_timesteps'], configs['data']['input_dim'],configs["data"]["channels"])))
 		'''
 
 			DIY Space reference from https://keras.io/layers/core/#dense
