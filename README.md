@@ -51,6 +51,17 @@
 - 參考[https://keras.io/layers/core/#dense](https://keras.io/layers/core/#dense)建立模型
 
 
+------------------
+
+## 換成自己的資料
+設置資料設定
+- 將npy檔案放在路徑file/底下
+- 將檔案名稱跟分類記錄在list.csv中
+- 將(x_train, y_train), (x_test, y_test) = csvData(configs)註解取消
+- 記得依照資料調整configs
+
+------------------
+
 ## 後續應用
 - 把keras轉換成tensorflow檔案
 [https://github.com/amir-abdi/keras_to_tensorflow](https://github.com/amir-abdi/keras_to_tensorflow)

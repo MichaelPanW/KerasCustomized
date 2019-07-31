@@ -62,8 +62,8 @@ def csvData(configs):
 
 def main():
     configs = json.load(open('config.json', 'r'))
-    (x_train, y_train), (x_test, y_test) = mnistData(configs)
-    #(x_train, y_train), (x_test, y_test) = csvData(configs)
+    (x_train, y_train), (x_test, y_test) = mnistData(configs)#mnist範例
+    #(x_train, y_train), (x_test, y_test) = csvData(configs)#換成自己的資料
     y_train = keras.utils.to_categorical(y_train, configs["data"]["num_classes"])
     y_test = keras.utils.to_categorical(y_test, configs["data"]["num_classes"])
 
