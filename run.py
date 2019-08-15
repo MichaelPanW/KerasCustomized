@@ -57,7 +57,7 @@ def mnistData(configs):
     x_test /= 255
     return (x_train, y_train), (x_test, y_test)
 def csvData(configs):
-    getDL = DataLoader(folder="data/",max_height=configs["data"]["input_dim"], max_width=configs["data"]["input_timesteps"], tag="classify", classNum=configs["data"]["num_classes"],key=0)
+    getDL = DataLoader(folder="data/",max_height=configs["data"]["input_timesteps"], max_width=configs["data"]["input_dim"], tag="classify",key=0)
     return (getDL.x_train, getDL.y_train), (getDL.x_test, getDL.y_test)
 
 def main():
